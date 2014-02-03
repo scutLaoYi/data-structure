@@ -47,6 +47,48 @@ void connect(int down, int up)
     return;
 }
 
+//return the blocks above block with index:ind
+void returnAbove(int ind)
+{
+    int curNex = node[ind].nex;
+    int ptr = curNex;
+
+    //make the initial one be the end of stack
+    node[ind].nex = -1;
+
+    while(ptr != -1)
+    {
+        //record the nex block to process
+        curNex = node[ptr].nex;
+
+        //make the current one into its initial position
+        connect(ptr, node[n+ptr].nex);
+        connect(ptr+n, ptr);
+
+        //get the next one to process
+        ptr = curNex;
+    }
+    return;
+}
+
+void output()
+{
+    for(int i = n; i < 2*n; ++i)
+    {
+        printf("%d:", i-n);
+        int ind = node[i].nex;
+        while(ind != -1)
+        {
+            printf(" %d", ind);
+            ind = node[ind].nex;
+        }
+        printf("\n");
+    }
+    return;
+}
+
+
+
 int main(int argc, char *argv[])
 {
 #ifdef DEBUG
@@ -60,23 +102,31 @@ int main(int argc, char *argv[])
     int ind1, ind2;
     while(true)
     {
-        if(scanf("%s %d %s %d", commandBuf, &ind1, posBuf, &ind2) < 4)
+        scanf("%s", commandBuf);
+        if(commandBuf[0] == 'q')
             break;
+        scanf("%d %s %d", &ind1, posBuf, &ind2);
 #ifdef DEBUG
         printf("command:%s %d %s %d\n", commandBuf, ind1, posBuf, ind2);
 #endif
+        int top1 = top(ind1);
+        int top2 = top(ind2);
+        if(top1 == top2)
+            continue;
         if(commandBuf[0] == 'm')
         {
-            connect(node[ind1].pre, node[ind1].nex);
+            connect(node[ind1].pre, -1);
             if(posBuf[1] == 'n')
             {
-                connect(ind1, node[ind2].nex);
+                returnAbove(ind1);
+                returnAbove(ind2);
+
                 connect(ind2, ind1);
             }
             else
             {
-                connect(ind1, -1);
-                connect(top(ind2), ind1);
+                returnAbove(ind1);
+                connect(top2, ind1);
             }
         }
         else
@@ -84,27 +134,19 @@ int main(int argc, char *argv[])
             connect(node[ind1].pre, -1);
             if(posBuf[1] == 'n')
             {
-                connect(top(ind1), node[ind2].nex);
+                returnAbove(ind2);
                 connect(ind2, ind1);
             }
             else
             {
-                connect(top(ind2), ind1);
+                connect(top2, ind1);
             }
         }
+#ifdef DEBUG
+        output();
+#endif
     }
-
-    for(int i = n; i < 2*n; ++i)
-    {
-        printf("%d:", i-n);
-        int ind = node[i].nex;
-        while(ind != -1)
-        {
-            printf(" %d", ind);
-            ind = node[ind].nex;
-        }
-        printf("\n");
-    }
+    output();
 
     return 0;
 }
