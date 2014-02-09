@@ -41,7 +41,7 @@ public:
 };
 
 /*
- * Implementation...
+ * Implementation of data node.
  */
 
 template <class Type>

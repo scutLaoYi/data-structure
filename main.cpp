@@ -10,12 +10,6 @@ void printInt(int &value)
     return ;
 }
 
-void functionptrtest()
-{
-    int num = 15;
-    printInt(num);
-    return ;
-}
 void linklisttest()
 {
     //allocation...
@@ -29,6 +23,13 @@ void linklisttest()
     for(int i = 50; i < 70; i++)
         linklist->insertafter(5, i);
 
+    linklist->listprint(printInt);
+
+    int fifth;
+    if(linklist->getnth(5, fifth))
+        printf("\nThe fifth element:%d\n", fifth);
+    else
+        printf("\nSomething wrong when get the fifth element.\n");
     delete linklist;
     return;
 }
@@ -44,10 +45,8 @@ int main(int argc, char *argv[])
     }
     else
         choice = atoi(argv[1]);
-    printf("your choice is: %d", choice);
+    printf("your choice is: %d\n", choice);
 
-
-    functionptrtest();
     linklisttest();
     return 0;
 

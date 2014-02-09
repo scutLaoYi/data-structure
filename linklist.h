@@ -29,8 +29,11 @@ public :
     bool insertafter(int index, Type &data);
     void push(Type &data);
 
+    //get the nth value
+    bool getnth(int ind, Type &buf);
+
     //list travelling...
-    //void listprint(void (*nodeprinter)(Type &));
+    void listprint(void (*nodeprinter)(Type &));
 };
 
 /*
@@ -91,6 +94,38 @@ template <class Type>
 void Linklist<Type>::push(Type &data)
 {
     this->insertafter(0, data);
+    return;
+}
+
+//------------------------------------
+
+template <class Type>
+bool Linklist<Type>::getnth(int ind, Type &buf)
+{
+    assert(ind > 0);
+    Node<Type> *ptr = head;
+    for(int i = 0; i < ind; ++i)
+    {
+        if(ptr->nex)
+            ptr = ptr->nex;
+        else
+            return false;
+    }
+    buf = ptr->value;
+    return true;
+}
+
+
+
+template <class Type>
+void Linklist<Type>::listprint(void (*nodeprinter)(Type &))
+{
+    Node<Type> *ptr = head->nex;
+    while(ptr)
+    {
+        nodeprinter(ptr->value);
+        ptr = ptr->nex;
+    }
     return;
 }
 
