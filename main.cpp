@@ -25,11 +25,27 @@ void linklisttest()
 
     linklist->listprint(printInt);
 
-    int fifth;
-    if(linklist->getnth(5, fifth))
-        printf("\nThe fifth element:%d\n", fifth);
+    int num;
+    if(linklist->getnth(5, num))
+        printf("\nThe fifth element:%d\n", num);
     else
         printf("\nSomething wrong when get the fifth element.\n");
+    if(linklist->getnth(1, num))
+        printf("\nThe first element:%d\n", num);
+    else
+        printf("\nSomething wrong when get the frist element.\n");
+    if(linklist->getnth(100, num))
+        printf("\nHey, why it can get the 100th element?\n");
+    else
+        printf("\nCan't get the 100th element, no enough length.\n");
+
+    for(int i = 1; i < 11; i++)
+    {
+        linklist->removenth(i);
+        printf("\nList after removing the %d element:\n", i);
+        linklist->listprint(printInt);
+    }
+
     delete linklist;
     return;
 }
@@ -45,7 +61,6 @@ int main(int argc, char *argv[])
     }
     else
         choice = atoi(argv[1]);
-    printf("your choice is: %d\n", choice);
 
     linklisttest();
     return 0;

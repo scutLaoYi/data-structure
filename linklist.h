@@ -21,6 +21,11 @@ class Linklist
 {
     Freelist<Type> *freelist;
     Node<Type> *head;
+
+private:
+    Node<Type> *getend();
+    bool _getnth(int ind, Node<Type> *&ptr);
+
 public :
     Linklist();
     ~Linklist();
@@ -32,13 +37,43 @@ public :
     //get the nth value
     bool getnth(int ind, Type &buf);
 
+    //remove the nth value
+    bool removenth(int ind);
+
     //list travelling...
     void listprint(void (*nodeprinter)(Type &));
 };
 
-/*
- * Implementation of link list
- */
+/////////////////////////////////
+//Private function
+
+template<class Type>
+Node<Type> *Linklist<Type>::getend()
+{
+    Node<Type> *ptr = head;
+    while(ptr->nex)
+        ptr = ptr->nex;
+    return ptr;
+}
+
+template <class Type>
+bool Linklist<Type>::_getnth(int ind, Node<Type> *&ptr)
+{
+    assert(ind >= 0);
+    ptr = head;
+    for(int i = 0; i < ind; ++i)
+    {
+        if(ptr->nex)
+            ptr = ptr->nex;
+        else
+            return false;
+    }
+    return true;
+}
+
+/////////////////////////////////////
+//Public function
+//
 
 template <class Type>
 Linklist<Type>::Linklist()
@@ -64,9 +99,7 @@ Linklist<Type>::~Linklist()
 template <class Type>
 void Linklist<Type>::append(Type &data)
 {
-    Node<Type> *ptr = head;
-    while(ptr->nex)
-        ptr = ptr->nex;
+    Node<Type> *ptr = getend();
     ptr->nex = freelist->newnode();
     ptr->nex->value = data;
     return;
@@ -75,14 +108,9 @@ void Linklist<Type>::append(Type &data)
 template <class Type>
 bool Linklist<Type>::insertafter(int index, Type &data)
 {
-    assert(index >= 0);
-    Node<Type> *ptr = head;
-    for(int i = 0; i < index; ++i)
-    {
-        if(!ptr->nex)
-            return false;
-        ptr = ptr->nex;
-    }
+    Node<Type> *ptr;
+    if(!_getnth(index, ptr))
+        return false;
     Node<Type> *temp = freelist->newnode();
     temp->value = data;
     temp->nex = ptr->nex;
@@ -102,19 +130,29 @@ void Linklist<Type>::push(Type &data)
 template <class Type>
 bool Linklist<Type>::getnth(int ind, Type &buf)
 {
-    assert(ind > 0);
-    Node<Type> *ptr = head;
-    for(int i = 0; i < ind; ++i)
-    {
-        if(ptr->nex)
-            ptr = ptr->nex;
-        else
-            return false;
-    }
+    assert(ind>0);
+    Node<Type> *ptr;
+    if(!_getnth(ind, ptr))
+        return false;
     buf = ptr->value;
     return true;
 }
 
+//----------------------------------
+template <class Type>
+bool Linklist<Type>::removenth(int ind)
+{
+    assert(ind > 0);
+    Node<Type> *ptr;
+    if(!_getnth(ind-1, ptr))
+        return false;
+    if(!ptr->nex)
+        return false;
+    Node<Type> *temp = ptr->nex;
+    ptr->nex = temp->nex;
+    freelist->delnode(temp);
+    return true;
+}
 
 
 template <class Type>
