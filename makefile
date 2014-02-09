@@ -9,10 +9,10 @@ main.o: main.cpp
 	g++ -c main.cpp
 
 node.o: node.cpp node.h
-	g++ -c node.h node.cpp
+	g++ -c node.h
 
 linklist.o: linklist.h linklist.cpp
-	g++ -c linklist.h linklist.cpp
+	g++ -c linklist.h
 
 clean:
 	rm -rf $(OUTPUT_FILE) *.o *.gch
