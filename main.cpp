@@ -16,12 +16,12 @@ void linklisttest()
     Linklist<int> *linklist = new Linklist<int>();
 
     //adding...
-    for(int i = 0; i < 20; i++)
+    for(int i = 20; i < 30; i++)
         linklist->append(i);
-    for(int i = 25; i < 45; i++)
+    for(int i = 9; i != -1; i--) 
         linklist->push(i);
-    for(int i = 50; i < 70; i++)
-        linklist->insertafter(5, i);
+    for(int i = 19; i != 9; i--)
+        linklist->insertafter(10, i);
 
     linklist->listprint(printInt);
 

@@ -25,6 +25,7 @@ class Linklist
 private:
     Node<Type> *getend();
     bool _getnth(int ind, Node<Type> *&ptr);
+    bool step(Node<Type> *&ptr);
 
 public :
     Linklist();
@@ -36,6 +37,7 @@ public :
 
     //get the nth value
     bool getnth(int ind, Type &buf);
+    bool getmiddle(Type &buf);
 
     //remove the nth value
     bool removenth(int ind);
@@ -51,8 +53,7 @@ template<class Type>
 Node<Type> *Linklist<Type>::getend()
 {
     Node<Type> *ptr = head;
-    while(ptr->nex)
-        ptr = ptr->nex;
+    while(step(ptr));
     return ptr;
 }
 
@@ -62,12 +63,17 @@ bool Linklist<Type>::_getnth(int ind, Node<Type> *&ptr)
     assert(ind >= 0);
     ptr = head;
     for(int i = 0; i < ind; ++i)
-    {
-        if(ptr->nex)
-            ptr = ptr->nex;
-        else
+        if(!step(ptr))
             return false;
-    }
+    return true;
+}
+
+template <class Type>
+bool Linklist<Type>::step(Node<Type> *&ptr)
+{
+    if(!ptr->nex)
+        return false;
+    ptr = ptr->nex;
     return true;
 }
 
@@ -138,6 +144,17 @@ bool Linklist<Type>::getnth(int ind, Type &buf)
     return true;
 }
 
+//under development...
+template <class Type>
+bool Linklist<Type>::getmiddle(Type &buf)
+{
+    assert(false);
+    if(!head->nex)
+        return false;
+    Node<Type> *fast, *slow;
+    fast = slow = head;
+}
+
 //----------------------------------
 template <class Type>
 bool Linklist<Type>::removenth(int ind)
@@ -158,12 +175,9 @@ bool Linklist<Type>::removenth(int ind)
 template <class Type>
 void Linklist<Type>::listprint(void (*nodeprinter)(Type &))
 {
-    Node<Type> *ptr = head->nex;
-    while(ptr)
-    {
+    Node<Type> *ptr = head;
+    while(step(ptr))
         nodeprinter(ptr->value);
-        ptr = ptr->nex;
-    }
     return;
 }
 
