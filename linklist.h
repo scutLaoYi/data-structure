@@ -13,8 +13,7 @@
 
 /* 
  * Class: Link list
- * Description: Main class for free list, 
- * support some function such as adding, deleting, inserting, and so on.
+ * Description: Main class for free list 
  */
 template <class Type>
 class Linklist
@@ -25,6 +24,9 @@ class Linklist
 private:
     Node<Type> *getend();
     bool _getnth(int ind, Node<Type> *&ptr);
+
+    //make the pointer move one step forward to next node.
+    //return true if success and false if it can't move anymore.
     bool step(Node<Type> *&ptr);
 
 public :
@@ -38,6 +40,13 @@ public :
     //get the nth value
     bool getnth(int ind, Type &buf);
     bool getmiddle(Type &buf);
+    bool getnthfromend(int ind, Type &buf);
+
+    //counting
+    int countelement(Type &target);
+
+    //reverse
+    void reverse();
 
     //remove the nth value
     bool removenth(int ind);
@@ -144,17 +153,73 @@ bool Linklist<Type>::getnth(int ind, Type &buf)
     return true;
 }
 
-//under development...
 template <class Type>
 bool Linklist<Type>::getmiddle(Type &buf)
 {
-    assert(false);
     if(!head->nex)
         return false;
     Node<Type> *fast, *slow;
     fast = slow = head;
+    while(true)
+    {
+        assert(step(slow));
+        assert(step(fast));
+        if(!step(fast) || !fast->nex)
+            break;
+    }
+    buf = slow->value;
+    return true;
 }
 
+template <class Type>
+bool Linklist<Type>::getnthfromend(int ind, Type &buf)
+{
+    assert(ind >= 0);
+    Node<Type> *mainptr, *referptr;
+    mainptr = head;
+    if(!_getnth(ind, referptr))
+        return false;
+    while(true)
+        if(step(referptr))
+            step(mainptr);
+        else 
+            break;
+    buf = mainptr->value;
+    return true;
+}
+
+template <class Type>
+int Linklist<Type>::countelement(Type &target)
+{
+    int count = 0;
+    Node<Type> *ptr = head;
+    while(step(ptr))
+        if(ptr->value == target)
+            ++count;
+    return count;
+}
+
+//----------------------------------
+
+template <class Type>
+void Linklist<Type>::reverse()
+{
+    Node<Type> *prev, *cur, *nex;
+    cur = head->nex;
+    prev = 0;
+    while(true)
+    {
+        nex = cur->nex;
+        cur->nex = prev;
+        prev = cur;
+        if(nex) //have some more to deal with
+            cur = nex;
+        else //reach the end of the list
+            break;
+    }
+    head->nex = cur;
+    return;
+}
 //----------------------------------
 template <class Type>
 bool Linklist<Type>::removenth(int ind)

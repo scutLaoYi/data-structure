@@ -10,3 +10,6 @@ main.o: main.cpp
 
 clean:
 	rm -rf $(OUTPUT_FILE) *.o *.gch
+
+run:
+	./$(OUTPUT_FILE)

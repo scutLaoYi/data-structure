@@ -42,9 +42,29 @@ void linklisttest()
     for(int i = 1; i < 11; i++)
     {
         linklist->removenth(i);
-        printf("\nList after removing the %d element:\n", i);
+        printf("List after removing the %d element:\n", i);
         linklist->listprint(printInt);
+        printf("\n");
+
+        int temp ;
+        assert(linklist->getmiddle(temp));
+        printf(" Middle:%d", temp);
+        if(linklist->getnthfromend(i, temp))
+            printf(" %dth  element from end:%d", i, temp);
+        else
+            printf(" can't get the %dnd element from end!", i);
+        temp = 2;
+        printf(" element %d exists %d time(s)", temp, linklist->countelement(temp));
+        printf("\n");
     }
+
+    printf("---reverse---\n");
+    linklist->reverse();
+    linklist->listprint(printInt);
+    printf("\n");
+    linklist->reverse();
+    linklist->listprint(printInt);
+    printf("\n");
 
     delete linklist;
     return;
