@@ -45,6 +45,9 @@ void linklisttest()
         printf("List after removing the %d element:\n", i);
         linklist->listprint(printInt);
         printf("\n");
+        printf("reverse:");
+        linklist->listprintreverse(printInt);
+        printf("\n");
 
         int temp ;
         assert(linklist->getmiddle(temp));

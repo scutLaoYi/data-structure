@@ -53,6 +53,8 @@ public :
 
     //list travelling...
     void listprint(void (*nodeprinter)(Type &));
+    void listprintreverse(void (*nodeprinter)(Type &), 
+            Node<Type> *curptr = 0);
 };
 
 /////////////////////////////////
@@ -246,4 +248,19 @@ void Linklist<Type>::listprint(void (*nodeprinter)(Type &))
     return;
 }
 
+template <class Type>
+void Linklist<Type>::listprintreverse(void (*nodeprinter)(Type &), Node<Type> *curptr)
+{
+    if(!curptr)
+    {
+        curptr = head;
+        listprintreverse(nodeprinter, curptr);
+        return;
+    }
+    else if(curptr->nex)
+    {
+        listprintreverse(nodeprinter, curptr->nex);
+        nodeprinter(curptr->nex->value);
+    }
+}
 #endif
