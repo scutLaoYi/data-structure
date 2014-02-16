@@ -48,6 +48,9 @@ public :
     //reverse
     void reverse();
 
+    //rotate
+    bool rotatefrom(int ind);
+
     //remove the nth value
     bool removenth(int ind);
 
@@ -222,6 +225,28 @@ void Linklist<Type>::reverse()
     head->nex = cur;
     return;
 }
+
+//----------------------------------
+
+template <class Type>
+bool Linklist<Type>::rotatefrom(int ind)
+{
+    assert(ind > 0);
+    Node<Type> *point;
+    if(!_getnth(ind, point))
+        return false;
+    if(!point->nex)
+        return false;
+
+    Node<Type> *end = getend();
+
+    end->nex = head->nex;
+    head->nex = point->nex;
+    point->nex = 0;
+
+    return true;
+}
+
 //----------------------------------
 template <class Type>
 bool Linklist<Type>::removenth(int ind)

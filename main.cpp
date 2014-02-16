@@ -69,6 +69,17 @@ void linklisttest()
     linklist->listprint(printInt);
     printf("\n");
 
+    printf("---rotate---\n");
+    for(int i = 1; i < 10; ++i)
+    {
+        printf("rotate from %d:", i);
+        if(linklist->rotatefrom(i))
+            linklist->listprint(printInt);
+        else
+            printf("failed!");
+        printf("\n");
+    }
+
     delete linklist;
     return;
 }
