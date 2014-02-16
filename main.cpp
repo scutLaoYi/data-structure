@@ -2,6 +2,9 @@
 #include <cctype>
 #include <cstdlib>
 #include <cstring>
+#include <cassert>
+#include <ctime>
+#define DEBUG
 #include "linklist.h"
 #include "sortedlinklist.h"
 
@@ -84,9 +87,31 @@ void linklisttest()
     delete linklist;
     return;
 }
+
+void sortedlinklisttest()
+{
+    const int LIST_LENGTH = 20;
+    SortedLinklist<int> *list = new SortedLinklist<int>();
+    int tempvalue;
+    for(int t = 0; t < 10; ++t)
+    {
+        for(int i = 0; i < LIST_LENGTH; ++i)
+        {
+            tempvalue = rand() % 100;
+            list->append(tempvalue);
+        }
+
+        list->listprint(printInt);
+        printf("\n");
+    }
+    return;
+}
+
     
 int main(int argc, char *argv[])
 {
+    srand(time(0));
+/*
     int choice;
     if(argc == 1)
     {
@@ -96,8 +121,8 @@ int main(int argc, char *argv[])
     }
     else
         choice = atoi(argv[1]);
-
-    linklisttest();
+*/
+    sortedlinklisttest();
     return 0;
 
 }

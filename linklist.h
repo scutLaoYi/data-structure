@@ -1,6 +1,7 @@
 #ifndef LINKLIST_H
 #define LINKLIST_H
 #include <cassert>
+#include <cstdio>
 #include "node.h"
 /*
  * Practice of data structures -- Link List
@@ -18,6 +19,7 @@
 template <class Type>
 class Linklist
 {
+protected:
     Freelist<Type> *freelist;
     Node<Type> *head;
 
@@ -120,8 +122,7 @@ template <class Type>
 void Linklist<Type>::append(Type &data)
 {
     Node<Type> *ptr = getend();
-    ptr->nex = freelist->newnode();
-    ptr->nex->value = data;
+    ptr->nex = freelist->newnode(data);
     return;
 }
 
@@ -131,8 +132,7 @@ bool Linklist<Type>::insertafter(int index, Type &data)
     Node<Type> *ptr;
     if(!_getnth(index, ptr))
         return false;
-    Node<Type> *temp = freelist->newnode();
-    temp->value = data;
+    Node<Type> *temp = freelist->newnode(data);
     temp->nex = ptr->nex;
     ptr->nex = temp;
     return true;

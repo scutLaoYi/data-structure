@@ -37,6 +37,7 @@ public:
     Freelist();
     ~Freelist();
     Node<Type>* newnode();
+    Node<Type>* newnode(Type &value);
     void delnode(Node<Type> *ptr);
 };
 
@@ -83,6 +84,14 @@ Node<Type>* Freelist<Type>::newnode()
         return temp;
     }
     return new Node<Type>();
+}
+
+template <class Type>
+Node<Type>* Freelist<Type>::newnode(Type &value)
+{
+    Node<Type> *tempnode = newnode();
+    tempnode->value = value;
+    return tempnode;
 }
 
 template <class Type>
