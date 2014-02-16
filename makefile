@@ -12,5 +12,8 @@ main.o: main.cpp
 clean:
 	rm -rf $(EXE_FILE) *.o *.gch $(OUTPUT_FILE)
 
-run:
+run: $(EXE_FILE)
 	./$(EXE_FILE) > $(OUTPUT_FILE)
+
+check: $(OUTPUT_FILE)
+	cat $(OUTPUT_FILE) | less
