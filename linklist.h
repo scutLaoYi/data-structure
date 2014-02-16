@@ -21,7 +21,7 @@ class Linklist
     Freelist<Type> *freelist;
     Node<Type> *head;
 
-private:
+protected:
     Node<Type> *getend();
     bool _getnth(int ind, Node<Type> *&ptr);
 
