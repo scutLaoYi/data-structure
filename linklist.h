@@ -12,10 +12,6 @@
  * Personal Site: www.scutlaoyi.tk
  */
 
-/* 
- * Class: Link list
- * Description: Main class for free list 
- */
 template <class Type>
 class Linklist
 {
