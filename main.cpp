@@ -111,6 +111,11 @@ void sortedlinklisttest()
     lista->mergewithotherlist(listb);
     printf("result:");
     lista->listprint(printInt);
+    printf("\n");
+    printf("removing duplicates...\n");
+    lista->removeduplicates();
+    printf("result:");
+    lista->listprint(printInt);
     return;
 }
 

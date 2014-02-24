@@ -24,6 +24,7 @@ class SortedLinklist: public Linklist<Type>
     public:
     void append(Type &value);
     void mergewithotherlist(SortedLinklist<Type> *ptr);
+    void removeduplicates();
 };
 
 template <class Type>
@@ -84,5 +85,28 @@ void SortedLinklist<Type>::mergewithotherlist(SortedLinklist<Type> *listptr)
     //clear the other list
     listptr->head->nex = 0;
 }
+
+template <class Type>
+void SortedLinklist<Type>::removeduplicates()
+{
+    Node<Type> *ptr = this->head->nex;
+    if(!ptr)
+        return;
+    Node<Type> *nexptr = ptr->nex;
+    while(nexptr)
+    {
+        if(nexptr->value == ptr->value)
+        {
+            ptr->nex = nexptr->nex;
+            this->freelist->delnode(nexptr);
+        }
+        else
+            ptr = nexptr;
+        nexptr = ptr->nex;
+    }
+    return ;
+}
+
+
 
 #endif
