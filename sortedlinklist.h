@@ -14,12 +14,14 @@ template <class Type>
 class SortedLinklist: public Linklist<Type>
 {
     public:
-    SortedLinklist();
+    SortedLinklist(int (*comp)(Type *a, Type *b));
     ~SortedLinklist();
 
     protected:
     bool insertafter(int index, Type &data);
     void push(Type &data);
+
+    int (*comparefunc)(Type *a, Type *b);
 
     public:
     void append(Type &value);
@@ -29,8 +31,11 @@ class SortedLinklist: public Linklist<Type>
 };
 
 template <class Type>
-SortedLinklist<Type>::SortedLinklist()
+SortedLinklist<Type>::SortedLinklist(
+        int (*comp)(Type *a, Type *b)
+        )
 {
+    this->comparefunc = comp;
     return;
 }
 
@@ -44,7 +49,7 @@ template <class Type>
 void SortedLinklist<Type>::append(Type &data)
 {
     Node<Type> *ptr = this->head;
-    while(ptr->nex && ptr->nex->value < data)
+    while(ptr->nex && comparefunc(&(ptr->nex->value),&data) < 0)
         ptr = ptr->nex;
 
     Node<Type> *tempnex = ptr->nex;
@@ -65,7 +70,7 @@ void SortedLinklist<Type>::mergewithotherlist(SortedLinklist<Type> *listptr)
     //merge, smaller first
     while(ptra && ptrb)
     {
-        if(ptra->value > ptrb->value)
+        if(comparefunc(&(ptra->value), &(ptrb->value)) > 0)
         {
             traveller->nex = ptrb;
             ptrb = ptrb->nex;
@@ -96,7 +101,7 @@ void SortedLinklist<Type>::removeduplicates()
     Node<Type> *nexptr = ptr->nex;
     while(nexptr)
     {
-        if(nexptr->value == ptr->value)
+        if(!comparefunc(&(nexptr->value), &(ptr->value)))
         {
             ptr->nex = nexptr->nex;
             this->freelist->delnode(nexptr);
@@ -113,19 +118,23 @@ SortedLinklist<Type> *SortedLinklist<Type>::intersectionwith(SortedLinklist<Type
 {
     Node<Type> *taila = this->head->nex;
     Node<Type> *tailb = anotherlist->head->nex;
-    SortedLinklist<Type> *newlist = new SortedLinklist<Type> ();
+    SortedLinklist<Type> *newlist = new SortedLinklist<Type> (this->comparefunc);
     Node<Type> *newtail = newlist->head;
 
     while(taila  && tailb)
     {
-        if(taila->value == tailb->value)
+        int cp = comparefunc(
+                &(taila->value),
+                &(tailb->value)
+                );
+        if(!cp)
         {
             newtail->nex = this->freelist->newnode(taila->value);
             newtail = newtail->nex;
             taila = taila->nex;
             tailb = tailb->nex;
         }
-        else if(taila->value > tailb->value)
+        else if(cp > 0)
             tailb = tailb->nex;
         else 
             taila = taila->nex;

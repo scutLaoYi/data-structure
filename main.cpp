@@ -1,10 +1,10 @@
+#define TEST
 #include <cstdio>
 #include <cctype>
 #include <cstdlib>
 #include <cstring>
 #include <cassert>
 #include <ctime>
-#define DEBUG
 #include "linklist.h"
 #include "sortedlinklist.h"
 
@@ -88,11 +88,16 @@ void linklisttest()
     return;
 }
 
+int compare(int *a, int *b)
+{
+    return *a - *b;
+}
+
 void sortedlinklisttest()
 {
     const int LIST_LENGTH = 20;
-    SortedLinklist<int> *lista = new SortedLinklist<int>();
-    SortedLinklist<int> *listb = new SortedLinklist<int>();
+    SortedLinklist<int> *lista = new SortedLinklist<int>(compare);
+    SortedLinklist<int> *listb = new SortedLinklist<int>(compare);
     int tempvalue;
     for(int i = 0; i < LIST_LENGTH; ++i)
     {
