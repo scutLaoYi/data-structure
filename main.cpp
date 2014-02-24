@@ -107,6 +107,10 @@ void sortedlinklisttest()
     printf("\n");
     listb->listprint(printInt);
     printf("\n");
+    printf("intersetion:");
+    SortedLinklist<int> *intersetlist = lista->intersetionwith(listb);
+    intersetlist->listprint(printInt);
+    printf("\n");
     printf("merge!\n");
     lista->mergewithotherlist(listb);
     printf("result:");
