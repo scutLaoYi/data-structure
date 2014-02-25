@@ -3,8 +3,8 @@ OUTPUT_FILE=output
 
 all: main
 
-main: main.o node.h linklist.h sortedlinklist.h
-	g++ main.o node.h linklist.h sortedlinklist.h -o $(EXE_FILE) -Wall
+main: main.o node.h linkstack.h linklist.h sortedlinklist.h
+	g++ main.o node.h linkstack.h linklist.h sortedlinklist.h -o $(EXE_FILE) -Wall
 
 main.o: main.cpp
 	g++ -c main.cpp
