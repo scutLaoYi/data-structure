@@ -1,4 +1,5 @@
 #define TEST
+#define RANDOM_SIZE 100
 #include <cstdio>
 #include <cctype>
 #include <cstdlib>
@@ -7,6 +8,7 @@
 #include <ctime>
 #include "linklist.h"
 #include "sortedlinklist.h"
+#include "linkstack.h"
 
 void printInt(int &value)
 {
@@ -93,6 +95,11 @@ int compare(int *a, int *b)
     return *a - *b;
 }
 
+int get_random_int()
+{
+    return rand() % RANDOM_SIZE;
+}
+
 void sortedlinklisttest()
 {
     const int LIST_LENGTH = 20;
@@ -128,6 +135,41 @@ void sortedlinklisttest()
     return;
 }
 
+void linkstacktest()
+{
+    const int STACK_SIZE = 20;
+
+    printf("LinkStack testing...\n");
+    printf("Pushing...\n");
+    LinkStack<int> *stack = new LinkStack<int>();
+    assert(stack->isempty());
+
+    int bufint;
+    int testarray[STACK_SIZE];
+    for(int i = 0; i < STACK_SIZE; ++i)
+    {
+        bufint = get_random_int();
+        stack->push(bufint);
+        testarray[i] = bufint;
+        printf("%d\t", bufint);
+    }
+    printf("\n");
+    assert(!stack->isempty());
+
+    printf("Poping...\n");
+    for(int i = STACK_SIZE-1; i != -1; --i)
+    {
+        assert(stack->peek(bufint));
+        printf("%d\t", bufint);
+        assert(bufint == testarray[i]);
+        assert(stack->pop());
+    }
+    assert(stack->isempty());
+    printf("\n");
+
+    printf("LinkStack testing passed!\n");
+    return ;
+}
 
 int main(int argc, char *argv[])
 {
@@ -143,7 +185,7 @@ int main(int argc, char *argv[])
        else
        choice = atoi(argv[1]);
        */
-    sortedlinklisttest();
+    linkstacktest();
     return 0;
 
 }
