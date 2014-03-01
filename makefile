@@ -1,5 +1,6 @@
 EXE_FILE=test.out
 OUTPUT_FILE=output
+INPUT_FILE=input
 
 all: main
 
@@ -25,7 +26,7 @@ clean:
 	rm -rf $(EXE_FILE) *.o *.gch $(OUTPUT_FILE)
 
 run: $(EXE_FILE)
-	./$(EXE_FILE) > $(OUTPUT_FILE)
+	./$(EXE_FILE) > $(OUTPUT_FILE) < $(INPUT_FILE)
 
 check: $(OUTPUT_FILE)
 	cat $(OUTPUT_FILE) | less

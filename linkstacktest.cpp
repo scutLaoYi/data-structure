@@ -7,6 +7,15 @@
 #include "tools.h"
 #include "test.h"
 
+#define BUF_SIZE 100
+
+void balanceparentheses();
+
+void functions()
+{
+    balanceparentheses();
+}
+
 void linkstacktest()
 {
     const int STACK_SIZE = 20;
@@ -39,7 +48,63 @@ void linkstacktest()
     assert(stack->isempty());
     printf("\n");
 
+    printf("Testing stack functions...\n");
+    functions();
     printf("LinkStack testing passed!\n");
     return ;
 }
 
+bool mapchar(char left, char right)
+{
+    switch(left)
+    {
+        case '(':return right==')';
+        case '[':return right==']';
+        case '{':return right=='}';
+        default: assert(false);
+    }
+    return false;
+}
+
+void balanceparentheses()
+{
+    char buf[BUF_SIZE];
+    printf("input an expression to check balance parentheses:");
+    scanf("%s", buf);
+
+    LinkStack<char> *stack = 
+        new LinkStack<char>();
+    
+    bool check(true);
+    for(int i = 0; i < strlen(buf); ++i)
+    {
+        if(buf[i] == '{' ||
+                buf[i] == '[' ||
+                buf[i] == '(')
+            stack->push(buf[i]);
+        else
+        {
+            char current;
+            check = stack->peek(current);
+            if(!check)
+                break;
+            else
+                stack->pop();
+            if(!mapchar(current, buf[i]))
+            {
+                check = false;
+                break;
+            }
+        }
+    }
+    if(!stack->isempty())
+        check = false;
+
+    if(check)
+        printf("The expression is balance!\n");
+    else
+        printf("The expression isn't balance!\n");
+    return ;
+}
+
+            
