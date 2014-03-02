@@ -69,42 +69,49 @@ bool mapchar(char left, char right)
 void balanceparentheses()
 {
     char buf[BUF_SIZE];
-    printf("input an expression to check balance parentheses:");
-    scanf("%s", buf);
-
-    LinkStack<char> *stack = 
-        new LinkStack<char>();
-    
-    bool check(true);
-    for(int i = 0; i < strlen(buf); ++i)
+    printf("input some expressions to check balance parentheses:\n");
+    printf("one line for each expressions and ends with a single 'e'.\n");
+    while(true)
     {
-        if(buf[i] == '{' ||
-                buf[i] == '[' ||
-                buf[i] == '(')
-            stack->push(buf[i]);
-        else
+        scanf("%s", buf);
+        if(buf[0] == 'e')
+            break;
+
+        LinkStack<char> *stack = 
+            new LinkStack<char>();
+
+        bool check(true);
+        for(int i = 0; i < strlen(buf); ++i)
         {
-            char current;
-            check = stack->peek(current);
-            if(!check)
-                break;
+            if(buf[i] == '{' ||
+                    buf[i] == '[' ||
+                    buf[i] == '(')
+                stack->push(buf[i]);
             else
-                stack->pop();
-            if(!mapchar(current, buf[i]))
             {
-                check = false;
-                break;
+                char current;
+                check = stack->peek(current);
+                if(!check)
+                    break;
+                else
+                    stack->pop();
+                if(!mapchar(current, buf[i]))
+                {
+                    check = false;
+                    break;
+                }
             }
         }
-    }
-    if(!stack->isempty())
-        check = false;
+        if(!stack->isempty())
+            check = false;
 
-    if(check)
-        printf("The expression is balance!\n");
-    else
-        printf("The expression isn't balance!\n");
+        printf("The expression '%s' ", buf);
+        if(check)
+            printf("is balance!\n");
+        else
+            printf("isn't balance!\n");
+    }
     return ;
 }
 
-            
+
