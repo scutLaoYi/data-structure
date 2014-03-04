@@ -39,8 +39,11 @@ void linkstacktest()
     printf("\n");
     assert(!stack->isempty());
 
+    printf("Reversing...\n");
+    stack->reverse();
+
     printf("Poping...\n");
-    for(int i = STACK_SIZE-1; i != -1; --i)
+    for(int i = 0; i < STACK_SIZE; ++i)
     {
         assert(stack->peek(bufint));
         printf("%d\t", bufint);

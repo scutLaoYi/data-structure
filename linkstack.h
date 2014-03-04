@@ -24,6 +24,8 @@ class LinkStack
     bool pop();
     bool peek(Type &buf);
     bool isempty();
+    void insertatbottom(Type &value);
+    void reverse();
 };
 
 template <class Type>
@@ -69,6 +71,35 @@ template <class Type>
 bool LinkStack<Type>::isempty()
 {
     return top ? false : true;
+}
+
+template <class Type>
+void LinkStack<Type>::insertatbottom(Type &value)
+{
+    if(isempty())
+    {
+        top = freelist->newnode(value);
+        return;
+    }
+
+    Node<Type> *ptr = top;
+    while(ptr->nex)
+        ptr = ptr->nex;
+    ptr->nex = freelist->newnode(value);
+    return;
+}
+
+template <class Type>
+void LinkStack<Type>::reverse()
+{
+    Type buf;
+    if(this->peek(buf))
+    {
+        this->pop();
+        reverse();
+        this->insertatbottom(buf);
+    }
+    return;
 }
     
 #endif
