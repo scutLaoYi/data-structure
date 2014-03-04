@@ -11,11 +11,13 @@
 
 void balanceparentheses();
 void nextgreaterelement();
+void stockspan();
 
 void functions()
 {
     balanceparentheses();
     nextgreaterelement();
+    stockspan();
 }
 
 void linkstacktest()
@@ -169,6 +171,68 @@ void nextgreaterelement()
     delete stack;
     return;
 }
+
+struct Stock
+{
+    int value;
+    int index;
+};
+
+void stockspan()
+{
+    printf("Now testing the stock span problem.\n");
+
+    int price[BUF_SIZE];
+    int size(0);
+    printf("Reading data(end with a -1)...\n");
+
+    while(true)
+    {
+        scanf("%d", &price[size]);
+        if(price[size]==-1)
+            break;
+        ++size;
+    }
+
+    for(int i = 0; i < size; ++i)
+        printf("%d\t", price[i]);
+    printf("\n");
+
+    int result[BUF_SIZE];
+    LinkStack<Stock> *stack = new LinkStack<Stock>();
+    Stock curstock;
+    int curvalue;
+
+    for(int i = 0; i < size;++i)
+    {
+        curvalue = 1;
+        while(stack->peek(curstock))
+        {
+            if(price[curstock.index] <= price[i])
+            {
+                curvalue += curstock.value;
+                stack->pop();
+            }
+            else
+            {
+                break;
+            }
+        }
+        result[i] = curvalue;
+        curstock.index = i;
+        curstock.value = curvalue;
+        stack->push(curstock);
+    }
+
+    printf("Result:\n");
+    for(int i = 0; i < size; ++i)
+        printf("%d\t", result[i]);
+    printf("\n");
+
+    return;
+}
+
+
 
 
 
