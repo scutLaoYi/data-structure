@@ -157,6 +157,11 @@ void nextgreaterelement()
         stack->push(buf[ptr]);
         ++ptr;
     }
+    while(stack->peek(curelement))
+    {
+        printf("%d -> -1\n", curelement);
+        stack->pop();
+    }
 
     delete stack;
     return;
