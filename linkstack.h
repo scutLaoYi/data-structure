@@ -76,16 +76,16 @@ bool LinkStack<Type>::isempty()
 template <class Type>
 void LinkStack<Type>::insertatbottom(Type &value)
 {
-    if(isempty())
+    if(this->isempty())
+        this->push(value);
+    else
     {
-        top = freelist->newnode(value);
-        return;
+        Type buf;
+        this->peek(buf);
+        this->pop();
+        this->insertatbottom(value);
+        this->push(buf);
     }
-
-    Node<Type> *ptr = top;
-    while(ptr->nex)
-        ptr = ptr->nex;
-    ptr->nex = freelist->newnode(value);
     return;
 }
 
