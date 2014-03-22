@@ -1,11 +1,5 @@
-#include <cstdio>
-#include <cctype>
-#include <cstdlib>
-#include <cstring>
-#include <cassert>
-#include <ctime>
 #include "tools.h"
-#include "test.h"
+#include "linkstack.h"
 
 #define BUF_SIZE 100
 

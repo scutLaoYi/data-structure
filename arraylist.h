@@ -19,13 +19,13 @@ class ArrayList
         Type *array;
 
         //compare function
-        int (*compare)(Type a, Type b);
+        int (*compare)(Type *a, Type *b);
     public :
-        ArrayList(int size, int (*comparefunc)(Type a, Type b));
+        ArrayList(int length, int (*comparefunc)(Type *a, Type* b));
         int getsize();
         //binary search.
         int search(Type value);
-        Type get(int index);
+        bool get(int index, Type &buf);
         bool set(int index, Type value);
         
         //sorting function.
@@ -38,4 +38,84 @@ class ArrayList
         void heapsort();
         void mergesort();
 }
+
+template <class Type>
+ArrayList<Type>::ArrayList(int length,
+        int (*comparefunc)(Type *a, Type *b))
+{
+    this->totallength = length;
+    this->compare = comparefunc;
+    this->size = 0;
+    this->array = 
+        new Type[length];
+    return;
+}
+
+template <class Type>
+int ArrayList<Type>::getsize()
+{
+    return this->size;
+}
+
+template <class Type>
+int ArrayList<Type>::search(Type value)
+{
+    return 0;
+}
+
+template <class Type>
+bool ArrayList<Type>::get(int index, Type &buf)
+{
+    return false;
+}
+
+template <class Type>
+bool ArrayList<Type>::set(int index, Type value)
+{
+    raturn false;
+}
+
+template <class Type>
+void ArrayList<Type>::bubblesort()
+{
+    return ;
+}
+
+template <class Type>
+void ArrayList<Type>::insertsort()
+{
+    return ;
+}
+template <class Type>
+void ArrayList<Type>::selectsort()
+{
+    return ;
+}
+
+template <class Type>
+void ArrayList<Type>::shellsort()
+{
+    return ;
+}
+
+template <class Type>
+void ArrayList<Type>::quicksort()
+{
+    return ;
+}
+
+template <class Type>
+void ArrayList<Type>::heapsort()
+{
+    return ;
+}
+
+template <class Type>
+void ArrayList<Type>::mergesort()
+{
+    return ;
+}
+
+
 #endif
+

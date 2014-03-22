@@ -1,11 +1,5 @@
-#include <cstdio>
-#include <cctype>
-#include <cstdlib>
-#include <cstring>
-#include <cassert>
-#include <ctime>
 #include "tools.h"
-#include "test.h"
+#include "sortedlinklist.h"
 
 void sortedlinklisttest()
 {

@@ -1,5 +1,3 @@
-#include <cstdlib>
-#include <cstdio>
 #include "tools.h"
 
 void printInt(int &value)

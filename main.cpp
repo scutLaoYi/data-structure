@@ -7,10 +7,6 @@
 #include <ctime>
 #include "tools.h"
 #include "test.h"
-#include "linklist.h"
-#include "sortedlinklist.h"
-#include "linkstack.h"
-
 int main(int argc, char *argv[])
 {
     srand(time(0));
