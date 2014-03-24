@@ -18,6 +18,8 @@ class ArrayList
         int totallength;
         Type *array;
 
+        bool sorted;
+
         //compare function
         int (*compare)(Type *a, Type *b);
 
@@ -64,6 +66,7 @@ ArrayList<Type>::ArrayList(int length,
     this->size = 0;
     this->array = 
         new Type[length];
+    this->sorted = false;
     return;
 }
 
@@ -94,6 +97,7 @@ bool ArrayList<Type>::set(int index, Type value)
     if(this->size >= index)
         return false;
     this->array[index] = value;
+    this->sorted = false;
     return true;
 }
 
@@ -103,6 +107,7 @@ bool ArrayList<Type>::add(Type value)
     if(this->size >= this->totallength)
         return false;
     this->array[this->size++] = value;
+    this->sorted = false;
     return true;
 }
 
@@ -125,14 +130,27 @@ void ArrayList<Type>::bubblesort()
         if(!flag)
             break;
     }
+    this->sorted = true;
     return ;
 }
 
 template <class Type>
 void ArrayList<Type>::insertsort()
 {
-    return ;
+    for(int i = 1; i < this->size; ++i)
+    {
+        int ptr = i;
+        while(ptr > 0 && 
+                compare(&this->array[ptr],
+                    &this->array[ptr-1]) < 0)
+        {
+            swap(ptr, ptr-1);
+            --ptr;
+        }
+    }
+    this->sorted = true;
 }
+
 template <class Type>
 void ArrayList<Type>::selectsort()
 {
