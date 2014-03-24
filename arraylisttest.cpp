@@ -11,6 +11,7 @@ void arraylisttest()
         new ArrayList<int>(LISTLENGTH, compare);
 
     int randomarray[LISTLENGTH];
+    int buf;
 
     printf("test adding...\n");
     for(int i = 0; i < LISTLENGTH; ++i)
@@ -21,13 +22,25 @@ void arraylisttest()
     }
     assert(!arraylist->add(randomarray[0]));
 
-    int buf;
     printf("\ncheck the value...\n");
     for(int i = 0; i < LISTLENGTH; ++i)
     {
         assert(arraylist->get(i, buf));
         assert(randomarray[i] == buf);
         printf("%d:%d\t", i, buf);
+    }
+
+    printf("\ntest the bubble sort...\n");
+    arraylist->bubblesort();
+    int left, right;
+    arraylist->get(0, left);
+    printf("sorted:%d ", left);
+    for(int i = 1; i < LISTLENGTH; ++i)
+    {
+        arraylist->get(i, right);
+        assert(left <= right);
+        left = right;
+        printf("%d ", left);
     }
 
     printf("\nArray List testing passed!\n");

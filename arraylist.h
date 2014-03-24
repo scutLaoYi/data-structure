@@ -45,7 +45,7 @@ class ArrayList
 };
 
 template <class Type>
-ArrayList<Type>::swap(int left, int right)
+void ArrayList<Type>::swap(int left, int right)
 {
     assert(left >= 0 && left < this->size);
     assert(right >= 0 && right < this->size);
@@ -114,13 +114,14 @@ void ArrayList<Type>::bubblesort()
         bool flag(false);
         for(int j = 1; j < this->size-i; ++j)
         {
-            if(compare(this->array[j-1], 
-                        this->array[j]) > 0)
+            if(compare(&this->array[j-1], 
+                        &this->array[j]) > 0)
             {
                 swap(j-1, j);
                 flag = true;
             }
         }
+        //no move, the list is sorted, so just jump out.
         if(!flag)
             break;
     }
