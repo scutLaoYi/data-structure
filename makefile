@@ -4,8 +4,8 @@ INPUT_FILE=input
 
 all: main
 
-main: main.o tools.o linklisttest.o sortedlinklisttest.o linkstacktest.o
-	g++ main.o linklisttest.o sortedlinklisttest.o linkstacktest.o tools.o node.h linkstack.h linklist.h sortedlinklist.h -o $(EXE_FILE) -Wall
+main: main.o tools.o linklisttest.o sortedlinklisttest.o linkstacktest.o arraylisttest.o
+	g++ main.o linklisttest.o sortedlinklisttest.o linkstacktest.o tools.o node.h linkstack.h linklist.h sortedlinklist.h arraylisttest.o -o $(EXE_FILE) -Wall
 
 main.o: main.cpp
 	g++ -c main.cpp
@@ -21,6 +21,9 @@ sortedlinklisttest.o: test.h sortedlinklisttest.cpp
 
 linkstacktest.o: test.h linkstacktest.cpp
 	g++ -c test.h linkstacktest.cpp
+
+arraylisttest.o: arraylisttest.cpp test.h
+	g++ -c test.h arraylisttest.cpp
 
 clean:
 	rm -rf $(EXE_FILE) *.o *.gch $(OUTPUT_FILE)

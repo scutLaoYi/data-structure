@@ -1,4 +1,5 @@
 #include "tools.h"
+#include "test.h"
 #include "arraylist.h"
 
 void arraylisttest()
@@ -21,14 +22,14 @@ void arraylisttest()
     assert(!arraylist->add(randomarray[0]));
 
     int buf;
-    printf("check the value...\n");
+    printf("\ncheck the value...\n");
     for(int i = 0; i < LISTLENGTH; ++i)
     {
         assert(arraylist->get(i, buf));
         assert(randomarray[i] == buf);
-        printf("%d\t", i, buf);
+        printf("%d:%d\t", i, buf);
     }
 
-    printf("Array List testing passed!\n");
+    printf("\nArray List testing passed!\n");
     return ;
 }

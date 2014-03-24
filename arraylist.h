@@ -39,7 +39,7 @@ class ArrayList
         void quicksort();
         void heapsort();
         void mergesort();
-}
+};
 
 template <class Type>
 ArrayList<Type>::ArrayList(int length,
@@ -68,7 +68,7 @@ int ArrayList<Type>::search(Type value)
 template <class Type>
 bool ArrayList<Type>::get(int index, Type &buf)
 {
-    if(this->size >= index)
+    if(this->size <= index)
         return false;
     buf = this->array[index];
     return true;
@@ -78,7 +78,7 @@ template <class Type>
 bool ArrayList<Type>::set(int index, Type value)
 {
     if(this->size >= index)
-        raturn false;
+        return false;
     this->array[index] = value;
     return true;
 }
