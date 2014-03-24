@@ -20,6 +20,8 @@ class ArrayList
 
         //compare function
         int (*compare)(Type *a, Type *b);
+
+        void swap(int left, int right);
     public :
         ArrayList(int length, int (*comparefunc)(Type *a, Type* b));
         int getsize();
@@ -39,7 +41,19 @@ class ArrayList
         void quicksort();
         void heapsort();
         void mergesort();
+
 };
+
+template <class Type>
+ArrayList<Type>::swap(int left, int right)
+{
+    assert(left >= 0 && left < this->size);
+    assert(right >= 0 && right < this->size);
+    Type buf = this->array[left];
+    this->array[left] = this->array[right];
+    this->array[right] = buf;
+    return;
+}
 
 template <class Type>
 ArrayList<Type>::ArrayList(int length,
@@ -95,6 +109,21 @@ bool ArrayList<Type>::add(Type value)
 template <class Type>
 void ArrayList<Type>::bubblesort()
 {
+    for(int i = 0; i < this->size; ++i)
+    {
+        bool flag(false);
+        for(int j = 1; j < this->size-i; ++j)
+        {
+            if(compare(this->array[j-1], 
+                        this->array[j]) > 0)
+            {
+                swap(j-1, j);
+                flag = true;
+            }
+        }
+        if(!flag)
+            break;
+    }
     return ;
 }
 
