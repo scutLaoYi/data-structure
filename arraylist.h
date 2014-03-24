@@ -23,11 +23,13 @@ class ArrayList
     public :
         ArrayList(int length, int (*comparefunc)(Type *a, Type* b));
         int getsize();
-        //binary search.
-        int search(Type value);
         bool get(int index, Type &buf);
         bool set(int index, Type value);
+        bool add(Type value);
         
+        //binary search.
+        int search(Type value);
+
         //sorting function.
         void bubblesort();
         void insertsort();
@@ -60,19 +62,34 @@ int ArrayList<Type>::getsize()
 template <class Type>
 int ArrayList<Type>::search(Type value)
 {
-    return 0;
+    return -1;
 }
 
 template <class Type>
 bool ArrayList<Type>::get(int index, Type &buf)
 {
-    return false;
+    if(this->size >= index)
+        return false;
+    buf = this->array[index];
+    return true;
 }
 
 template <class Type>
 bool ArrayList<Type>::set(int index, Type value)
 {
-    raturn false;
+    if(this->size >= index)
+        raturn false;
+    this->array[index] = value;
+    return true;
+}
+
+template <class Type>
+bool ArrayList<Type>::add(Type value)
+{
+    if(this->size >= this->totallength)
+        return false;
+    this->array[this->size++] = value;
+    return true;
 }
 
 template <class Type>

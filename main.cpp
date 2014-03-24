@@ -10,18 +10,7 @@
 int main(int argc, char *argv[])
 {
     srand(time(0));
-    /*
-       int choice;
-       if(argc == 1)
-       {
-       printf("Choose a data structure to test:\n");
-       printf("0: link list;\n");
-       scanf("%d", &choice);
-       }
-       else
-       choice = atoi(argv[1]);
-       */
-    linkstacktest();
+    arraylisttest();
     return 0;
 
 }
