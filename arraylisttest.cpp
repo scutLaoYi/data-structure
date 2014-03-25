@@ -2,36 +2,24 @@
 #include "test.h"
 #include "arraylist.h"
 
-void arraylisttest()
+const int LISTLENGTH = 100;
+void shuffle(ArrayList<int> *arraylist)
 {
-    printf("Array List testing begin!\n");
-    const int LISTLENGTH = 100;
-    
-    ArrayList<int> *arraylist =
-        new ArrayList<int>(LISTLENGTH, compare);
-
-    int randomarray[LISTLENGTH];
-    int buf;
-
-    printf("test adding...\n");
-    for(int i = 0; i < LISTLENGTH; ++i)
+    for(int t = 0; t < LISTLENGTH; ++t)
     {
-        randomarray[i] = rand() % 1000;
-        assert(arraylist->add(randomarray[i]));
-        printf("%d\t", randomarray[i]);
+        int ind1 = rand() % arraylist->getsize();
+        int ind2 = rand() % arraylist->getsize();
+        int temp1, temp2;
+        assert(arraylist->get(ind1, temp1));
+        assert(arraylist->get(ind2, temp2));
+        assert(arraylist->set(ind1, temp2));
+        assert(arraylist->set(ind2, temp1));
     }
-    assert(!arraylist->add(randomarray[0]));
-
-    printf("\ncheck the value...\n");
-    for(int i = 0; i < LISTLENGTH; ++i)
-    {
-        assert(arraylist->get(i, buf));
-        assert(randomarray[i] == buf);
-        printf("%d:%d\t", i, buf);
-    }
-
-    printf("\ntest the bubble sort...\n");
-    arraylist->bubblesort();
+    return;
+}
+        
+void checksorted(ArrayList<int> *arraylist)
+{
     int left, right;
     arraylist->get(0, left);
     printf("sorted:%d ", left);
@@ -42,7 +30,55 @@ void arraylisttest()
         left = right;
         printf("%d ", left);
     }
+    return;
+}
 
+void checklist(ArrayList<int> *arraylist)
+{
+    int buf;
+    printf("\ncheck the value...\n");
+    for(int i = 0; i < LISTLENGTH; ++i)
+    {
+        assert(arraylist->get(i, buf));
+        printf("%d:%d\t", i, buf);
+    }
+    printf("\n");
+    return;
+}
+
+
+void arraylisttest()
+{
+    printf("Array List testing begin!\n");
+    
+    ArrayList<int> *arraylist =
+        new ArrayList<int>(LISTLENGTH, compare);
+
+    int randomarray[LISTLENGTH];
+
+    printf("test adding...\n");
+    for(int i = 0; i < LISTLENGTH; ++i)
+    {
+        randomarray[i] = rand() % 1000;
+        assert(arraylist->add(randomarray[i]));
+        printf("%d\t", randomarray[i]);
+    }
+    assert(!arraylist->add(randomarray[0]));
+
+    checklist(arraylist);
+    
+    printf("\ntest the bubble sort...\n");
+    shuffle(arraylist);
+    checklist(arraylist);
+    arraylist->bubblesort();
+    checksorted(arraylist);
+
+    printf("\ntest the insert sort...\n");
+    shuffle(arraylist);
+    checklist(arraylist);
+    arraylist->insertsort();
+    checksorted(arraylist);
+    
     printf("\nArray List testing passed!\n");
     return ;
 }

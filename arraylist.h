@@ -94,7 +94,7 @@ bool ArrayList<Type>::get(int index, Type &buf)
 template <class Type>
 bool ArrayList<Type>::set(int index, Type value)
 {
-    if(this->size >= index)
+    if(this->size <= index)
         return false;
     this->array[index] = value;
     this->sorted = false;
