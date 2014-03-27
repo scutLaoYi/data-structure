@@ -102,9 +102,15 @@ void arraylisttest()
     checksorted(arraylist);
 
 	printf("\ntest the select sort...\n");
-     shuffle(arraylist);
+    shuffle(arraylist);
     checklist(arraylist);
     arraylist->selectsort();
+    checksorted(arraylist);
+
+	printf("\ntest the heap sort...\n");
+    shuffle(arraylist);
+    checklist(arraylist);
+    arraylist->heapsort();
     checksorted(arraylist);
 
     printf("\nArray List testing passed!\n");

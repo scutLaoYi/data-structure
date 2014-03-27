@@ -24,6 +24,9 @@ class ArrayList
         int (*compare)(Type *a, Type *b);
 
         void swap(int left, int right);
+		//heap
+		void buildheap();
+		void shiftdown(int index, int endindex);
     public :
         ArrayList(int length, int (*comparefunc)(Type *a, Type* b));
         int getsize();
@@ -205,8 +208,50 @@ void ArrayList<Type>::quicksort()
 }
 
 template <class Type>
+void ArrayList<Type>::shiftdown(int index, 
+		int endindex)
+{
+	int heapindex = index + 1;//start from 1, not 0
+	int leftchild = (heapindex <<1) - 1;
+	//leaf node
+	if(leftchild >= endindex)
+		return;
+	int rightchild = leftchild + 1;
+
+	int maxind = leftchild;
+	if(rightchild <= endindex)
+	{
+		//step back to real index and compare
+		maxind = compare(&this->array[leftchild], 
+				&this->array[rightchild]) > 0 ?
+			leftchild : rightchild;
+	}
+
+	if(compare(&this->array[index], 
+				&this->array[maxind]) < 0)
+	{
+		this->swap(index, maxind);
+		shiftdown(maxind, endindex);
+	}
+	return;
+}
+
+template <class Type>
+void ArrayList<Type>::buildheap()
+{
+	for(int i = this->size/2; i >= 0; --i)
+		shiftdown(i, this->size);
+	return;
+}
+template <class Type>
 void ArrayList<Type>::heapsort()
 {
+	this->buildheap();
+	for(int t = this->size-1; t > 0; --t)
+	{
+		this->swap(0, t);
+		this->shiftdown(0, t-1);
+	}
     return ;
 }
 
