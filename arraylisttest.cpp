@@ -36,7 +36,7 @@ void checksorted(ArrayList<int> *arraylist)
 void checklist(ArrayList<int> *arraylist)
 {
     int buf;
-    printf("\ncheck the value...\n");
+    printf("check the value...\n");
     for(int i = 0; i < LISTLENGTH; ++i)
     {
         assert(arraylist->get(i, buf));
@@ -89,17 +89,24 @@ void arraylisttest()
 	checksearching(arraylist, randomarray);
     
     printf("\ntest the bubble sort...\n");
-    shuffle(arraylist);
+	shuffle(arraylist);
     checklist(arraylist);
     arraylist->bubblesort();
     checksorted(arraylist);
+    
 
     printf("\ntest the insert sort...\n");
     shuffle(arraylist);
     checklist(arraylist);
     arraylist->insertsort();
     checksorted(arraylist);
-    
+
+	printf("\ntest the select sort...\n");
+     shuffle(arraylist);
+    checklist(arraylist);
+    arraylist->selectsort();
+    checksorted(arraylist);
+
     printf("\nArray List testing passed!\n");
     return ;
 }
