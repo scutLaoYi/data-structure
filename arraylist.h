@@ -79,6 +79,27 @@ int ArrayList<Type>::getsize()
 template <class Type>
 int ArrayList<Type>::search(Type value)
 {
+	if(!this->sorted)
+		this->bubblesort();
+
+	int left = 0;
+	int right = this->size;
+	int mid;
+
+	while(left < right)
+	{
+		mid = (left + right) >> 1;
+		if(value < this->array[mid])
+		{
+			right = mid;
+		}
+		else if(value > this->array[mid])
+		{
+			left = mid + 1;
+		}
+		else
+			return mid;
+	}
     return -1;
 }
 
@@ -154,6 +175,20 @@ void ArrayList<Type>::insertsort()
 template <class Type>
 void ArrayList<Type>::selectsort()
 {
+	for(int i = 0; i < this->size; ++i)
+	{
+		int minind = i;
+		for(int j = i+1; j < this->size; ++j)
+		{
+			if(compare(&this->array[minind],
+						&this->array[j]) > 0)
+			{
+				minind = j;
+			}
+		}
+		if(minind != i)
+			swap(minind, i);
+	}
     return ;
 }
 

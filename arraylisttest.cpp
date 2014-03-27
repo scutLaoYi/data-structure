@@ -46,6 +46,25 @@ void checklist(ArrayList<int> *arraylist)
     return;
 }
 
+void checksearching(ArrayList<int> *arraylist, 
+		int *randomarray)
+{
+	printf("Trying searching...\n");
+
+	int buf;
+	for(int i = 0; i < LISTLENGTH; ++i)
+	{
+		printf("Search %d:", randomarray[i]);
+		int ind = arraylist->search(randomarray[i]);
+		assert(ind >= 0);
+		assert(arraylist->get(ind, buf));
+		assert(buf == randomarray[i]);
+		printf("Get!");
+	}
+	assert(arraylist->search(-1) == -1);
+	printf("\nsearching test passed!");
+
+}
 
 void arraylisttest()
 {
@@ -66,6 +85,8 @@ void arraylisttest()
     assert(!arraylist->add(randomarray[0]));
 
     checklist(arraylist);
+
+	checksearching(arraylist, randomarray);
     
     printf("\ntest the bubble sort...\n");
     shuffle(arraylist);
