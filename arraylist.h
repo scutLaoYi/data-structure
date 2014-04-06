@@ -211,17 +211,15 @@ template <class Type>
 void ArrayList<Type>::shiftdown(int index, 
 		int endindex)
 {
-	int heapindex = index + 1;//start from 1, not 0
-	int leftchild = (heapindex <<1) - 1;
+	int leftchild = (index<<1)+1;
 	//leaf node
 	if(leftchild >= endindex)
 		return;
 	int rightchild = leftchild + 1;
 
 	int maxind = leftchild;
-	if(rightchild <= endindex)
+	if(rightchild < endindex)
 	{
-		//step back to real index and compare
 		maxind = compare(&this->array[leftchild], 
 				&this->array[rightchild]) > 0 ?
 			leftchild : rightchild;
@@ -250,7 +248,7 @@ void ArrayList<Type>::heapsort()
 	for(int t = this->size-1; t > 0; --t)
 	{
 		this->swap(0, t);
-		this->shiftdown(0, t-1);
+		this->shiftdown(0, t);
 	}
     return ;
 }
